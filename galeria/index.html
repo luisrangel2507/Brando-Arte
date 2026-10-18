@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recorrido virtual</title>
+<meta name="description" content="Recorrido virtual por la obra de un pintor, sala por sala.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="top__name" href="#entrada" id="top-name"></a>
+  <nav class="top__rooms" id="top-rooms" aria-label="Salas"></nav>
+</header>
+
+<main id="main">
+  <section class="entrada" id="entrada">
+    <h1 id="h-pintor"></h1>
+    <p class="entrada__expo" id="h-expo"></p>
+    <div class="entrada__intro" id="h-intro"></div>
+    <a class="btn" href="#sala-0">Entrar a la primera sala <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    <figure class="entrada__retrato" id="h-retrato" hidden></figure>
+    <ul class="pistas">
+      <li class="pista">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 11v-1a2 2 0 0 0-4 0M14 10V9a2 2 0 0 0-4 0v1M10 9.5V4a2 2 0 0 0-4 0v10M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+        <b>Toca una obra</b><span>para acercarte</span>
+      </li>
+      <li class="pista">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h9M3 16h9M2 12h19M16 7l5 5-5 5"/></svg>
+        <b>Avanza a la derecha</b><span>para ver cada cuadro</span>
+      </li>
+      <li class="pista">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="8" width="6" height="8" rx="1"/><rect x="9" y="8" width="6" height="8" rx="1"/><rect x="16.5" y="8" width="6" height="8" rx="1"/></svg>
+        <b>Explora las salas</b><span>y descubre su obra</span>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<dialog class="visor" id="visor" aria-label="Detalle de la obra">
+  <button class="visor__x" id="v-cerrar" aria-label="Cerrar">×</button>
+  <button class="visor__nav visor__nav--prev" id="v-prev" aria-label="Obra anterior">‹</button>
+  <button class="visor__nav visor__nav--next" id="v-next" aria-label="Obra siguiente">›</button>
+  <div class="visor__img" id="v-img"></div>
+  <div class="visor__ficha">
+    <h2 id="v-titulo"></h2>
+    <p class="visor__meta" id="v-meta"></p>
+    <p id="v-nota"></p>
+    <div class="compra" id="v-compra"></div>
+  </div>
+</dialog>
+
+<script src="obras.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
