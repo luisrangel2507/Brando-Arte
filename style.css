@@ -131,7 +131,17 @@ a { color: inherit; }
   .pista svg { width: 1.9rem; height: 1.9rem; }
 }
 @media (min-width: 801px) {
-  .entrada { height: auto; min-height: 100svh; padding-top: 3rem; }
+  .entrada { height: 100svh; min-height: 0; padding-top: 4.2rem; padding-bottom: 1rem; row-gap: clamp(.5rem, 1.6svh, 1.1rem); }
+  .entrada h1 { font-size: min(6.5rem, 11.5svh); }
+  .entrada__expo { font-size: clamp(.75rem, 1.9svh, .95rem); }
+  .entrada__expo::before { margin-bottom: clamp(.5rem, 1.6svh, 1.3rem); }
+  .entrada__intro { font-size: clamp(.9rem, 2.2svh, 1.12rem); gap: clamp(.35rem, 1svh, .6rem); }
+  .btn { padding: clamp(.65rem, 1.8svh, 1rem) 1.7rem; }
+  .entrada__retrato { padding-top: clamp(.7rem, 2svh, 1.3rem); }
+  .entrada__retrato img { aspect-ratio: auto; height: min(62svh, 36rem); }
+  .pistas { margin-top: clamp(.4rem, 1.5svh, 1.4rem); }
+  .pista { gap: .25rem; }
+  .pista svg { width: clamp(1.6rem, 4.2svh, 2.4rem); height: clamp(1.6rem, 4.2svh, 2.4rem); }
 }
 
 .marco--objeto { border: .35rem solid #e9e5de; background: #cfd0d1; }
@@ -162,3 +172,11 @@ a { color: inherit; }
 .consulta input, .consulta textarea { width: 100%; background: #ffffff12; color: var(--texto); border: 1px solid #fff4; border-radius: 6px; padding: .6rem .7rem; font: inherit; font-size: .95rem; }
 .consulta button[type="submit"] { justify-self: start; margin-top: .4rem; }
 .cartela__p { display: block; margin-top: .15rem; font-weight: 600; color: #6b5420; }
+
+@media (max-width: 800px) and (max-height: 700px) {
+  .entrada { min-height: 0; gap: .5rem; padding-top: 1rem; }
+  .entrada h1 { font-size: clamp(2.3rem, 11vw, 3.4rem); }
+  .entrada__intro { font-size: .88rem; line-height: 1.38; }
+  .entrada__intro p:nth-child(2) { display: none; }
+  .entrada__retrato { min-height: 70px; }
+}
