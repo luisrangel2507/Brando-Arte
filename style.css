@@ -114,7 +114,7 @@ a { color: inherit; }
 }
 
 /* ---------- portada en una sola pantalla ---------- */
-.entrada { height: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); min-height: 600px; }
+.entrada { height: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); min-height: 0; }
 @media (max-width: 800px) {
   .entrada { display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; padding-top: 1.4rem; padding-bottom: .9rem; }
   .entrada h1 { font-size: clamp(2.9rem, 13.5vw, 4.4rem); }
@@ -122,7 +122,7 @@ a { color: inherit; }
   .entrada__expo::before { margin-bottom: .8rem; }
   .entrada__intro { font-size: .98rem; max-width: 34ch; line-height: 1.45; }
   .btn { margin-top: .2rem; padding: .85rem 1.5rem; font-size: 1rem; }
-  .entrada__retrato { display: flex; flex-direction: column; flex: 1 1 0; min-height: 150px; margin: .3rem 0 0 3%; padding: 1rem 1rem 0; }
+  .entrada__retrato { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; margin: .3rem 0 0 3%; padding: 1rem 1rem 0; }
   .entrada__retrato[hidden] { display: none; }
   .entrada__retrato img { flex: 1 1 auto; min-height: 0; height: 100%; aspect-ratio: auto; object-position: 50% 42%; }
   .pistas { margin-top: .3rem; }
@@ -179,4 +179,16 @@ a { color: inherit; }
   .entrada__intro { font-size: .88rem; line-height: 1.38; }
   .entrada__intro p:nth-child(2) { display: none; }
   .entrada__retrato { min-height: 70px; }
+}
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (max-width: 800px) {
+  .entrada { overflow: hidden; }
+  .entrada h1 { font-size: min(13.5vw, 7.6svh); }
+  .entrada__expo { font-size: clamp(.7rem, 1.8svh, .85rem); }
+  .entrada__intro { font-size: clamp(.78rem, 2.05svh, .98rem); max-width: 40ch; }
+  .btn { padding: clamp(.55rem, 1.6svh, .85rem) 1.4rem; font-size: clamp(.9rem, 2svh, 1rem); }
+  .pista { font-size: clamp(.62rem, 1.6svh, .74rem); }
+  .pista b { font-size: clamp(.58rem, 1.5svh, .68rem); }
+  .pista svg { width: clamp(1.3rem, 3.2svh, 1.9rem); height: clamp(1.3rem, 3.2svh, 1.9rem); }
 }
