@@ -50,6 +50,40 @@
     return m;
   }
 
+  // controles de la sala en móvil: flechas, contador, puntos y botón de detalles
+  function controles(pared, n, primera) {
+    const box = el("div", "ctl");
+    const prev = el("button", "ctl__flecha ctl__flecha--prev", "‹");
+    const next = el("button", "ctl__flecha ctl__flecha--next", "›");
+    prev.type = next.type = "button";
+    prev.setAttribute("aria-label", "Obra anterior");
+    next.setAttribute("aria-label", "Obra siguiente");
+    const cuenta = el("p", "ctl__cuenta");
+    const puntos = el("div", "ctl__puntos");
+    puntos.setAttribute("aria-hidden", "true");
+    for (let i = 0; i < n; i++) puntos.appendChild(el("span"));
+    const ver = el("button", "ctl__ver", "Ver detalles de la obra ");
+    ver.type = "button";
+    ver.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>');
+    let i = 0;
+    const pinta = () => {
+      i = Math.min(n - 1, Math.max(0, Math.round(pared.scrollLeft / (pared.clientWidth || 1))));
+      cuenta.textContent = "Obra " + (i + 1) + " de " + n;
+      [...puntos.children].forEach((p, k) => p.classList.toggle("on", k === i));
+      prev.disabled = i === 0;
+      next.disabled = i === n - 1;
+    };
+    const ir = (k) => pared.scrollTo({ left: k * pared.clientWidth, behavior: "smooth" });
+    prev.addEventListener("click", () => ir(i - 1));
+    next.addEventListener("click", () => ir(i + 1));
+    ver.addEventListener("click", () => abrir(primera + i));
+    pared.addEventListener("scroll", pinta, { passive: true });
+    window.addEventListener("resize", pinta);
+    pinta();
+    box.append(prev, next, cuenta, puntos, ver);
+    return box;
+  }
+
   D.salas.forEach((s, si) => {
     const a = el("a", null, s.titulo);
     a.href = "#sala-" + si;
@@ -66,6 +100,7 @@
     const pared = el("div", "pared");
     pared.tabIndex = 0;
     pared.setAttribute("aria-label", s.titulo + ": obras");
+    const primera = todas.length;
     s.obras.forEach((o) => {
       const idx = todas.push(o) - 1;
       const b = el("button", "obra");
@@ -81,7 +116,8 @@
       pared.appendChild(b);
     });
 
-    cuerpo.append(placa, pared);
+    const ctl = controles(pared, s.obras.length, primera);
+    cuerpo.append(placa, pared, ctl);
     const piso = el("div", "piso");
     const sig = D.salas[si + 1];
     const puerta = el("a", "puerta", sig ? "Pasar a la " + sig.titulo.toLowerCase() : "Volver a la entrada");

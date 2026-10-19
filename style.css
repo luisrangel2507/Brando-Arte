@@ -192,3 +192,29 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .pista b { font-size: clamp(.58rem, 1.5svh, .68rem); }
   .pista svg { width: clamp(1.3rem, 3.2svh, 1.9rem); height: clamp(1.3rem, 3.2svh, 1.9rem); }
 }
+
+/* ---------- controles de sala (móvil) ---------- */
+.ctl { display: none; }
+@media (max-width: 800px) {
+  .sala { height: 100svh; min-height: 0; }
+  .sala__cuerpo { position: relative; grid-template-rows: auto minmax(0, 1fr) auto; align-items: stretch; padding-top: 4.6rem; min-height: 0; }
+  .placa { padding: 0 1.4rem; }
+  .pared { padding: 0; gap: 0; scroll-snap-type: x mandatory; scrollbar-width: none; align-items: center; min-height: 0; }
+  .pared::-webkit-scrollbar { display: none; }
+  .obra { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; }
+  .obra::before { height: 3svh; margin-bottom: -1.5svh; }
+  .marco { height: min(calc(var(--h) * .42svh), 44svh); max-width: 74vw; }
+  .cartela { display: none; }
+  .ctl { display: grid; justify-items: center; gap: .55rem; padding: .4rem 1.4rem 1rem; }
+  .ctl__cuenta { margin: 0; font-family: var(--serif); font-size: .95rem; color: #e6e0d4; }
+  .ctl__puntos { display: flex; gap: .55rem; }
+  .ctl__puntos span { width: .55rem; height: .55rem; border-radius: 50%; background: #fff4; }
+  .ctl__puntos span.on { background: var(--laton); }
+  .ctl__ver { display: inline-flex; align-items: center; gap: .7rem; margin-top: .3rem; padding: .85rem 1.8rem; background: var(--laton); color: #1c1608; border: 0; border-radius: .6rem; font: inherit; font-family: var(--serif); font-size: 1.05rem; cursor: pointer; }
+  .ctl__ver svg { width: 1.2rem; height: 1.2rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ctl__flecha { position: absolute; top: 50%; z-index: 2; width: 2.9rem; height: 2.9rem; border-radius: 50%; border: 1px solid var(--laton); background: #0b0908cc; color: var(--texto); font-size: 1.7rem; line-height: 1; padding: 0 0 .15rem; cursor: pointer; }
+  .ctl__flecha--prev { left: .8rem; }
+  .ctl__flecha--next { right: .8rem; background: var(--laton); color: #1c1608; }
+  .ctl__flecha:disabled { opacity: .35; }
+  .piso { height: 7svh; min-height: 48px; }
+}
