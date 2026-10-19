@@ -3,6 +3,14 @@
   const $ = (id) => document.getElementById(id);
   const main = $("main");
 
+  // siempre se abre en la portada, sin recordar posición ni #sala-N de visitas anteriores
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const traiaHash = !!location.hash;
+  if (traiaHash) history.replaceState(null, "", location.pathname + location.search);
+  window.scrollTo(0, 0);
+  if (traiaHash) window.addEventListener("load", () => { window.scrollTo(0, 0); setTimeout(() => window.scrollTo(0, 0), 60); });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) window.scrollTo(0, 0); });
+
   document.title = D.exposicion + " · " + D.pintor;
   $("top-name").textContent = D.pintor;
   $("h-pintor").textContent = D.pintor;
