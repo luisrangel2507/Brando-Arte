@@ -512,6 +512,61 @@
     }
   }
 
+  /* ---------- flashes de cámaras fotográficas (transición de las salas con transicion: "flash") ---------- */
+  const CAMARA = '<svg viewBox="0 0 64 48" aria-hidden="true"><path d="M8 12h10l4-6h20l4 6h10a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z" fill="#15110e" stroke="#d9d2c3" stroke-width="2"/><circle cx="32" cy="28" r="12" fill="#0a0a0a" stroke="#d9d2c3" stroke-width="2"/><circle cx="32" cy="28" r="7" fill="#1c3a5a"/><circle cx="29" cy="25" r="2.2" fill="#fff" opacity=".85"/><rect x="9" y="16" width="9" height="5" rx="1.5" fill="#efe9de"/></svg>';
+
+  async function flashes(destino) {
+    const raiz = document.documentElement;
+    const antes = [raiz.style.scrollBehavior, raiz.style.scrollSnapType];
+    raiz.style.scrollBehavior = "auto";
+    raiz.style.scrollSnapType = "none";
+    const capa = el("div", "camaras");
+    capa.setAttribute("aria-hidden", "true");
+    const velo = el("div", "camaras__velo");
+    const lote = el("div", "camaras__lote");
+    capa.append(lote, velo);
+    document.body.appendChild(capa);
+
+    // cámaras repartidas por la pantalla (celdas barajadas con un poco de desorden)
+    const W = innerWidth, H = innerHeight;
+    const cols = W > H ? 4 : 3, filas = W > H ? 3 : 4;
+    const celdas = [];
+    for (let c = 0; c < cols; c++) for (let f = 0; f < filas; f++) celdas.push([c, f]);
+    celdas.sort(() => Math.random() - 0.5);
+    const tam = Math.max(56, Math.min(W, H) * 0.19);
+    const N = 8, PASO = 85;
+    const anims = [];
+    celdas.slice(0, N).forEach(([c, f], i) => {
+      const cam = el("div", "camara");
+      cam.innerHTML = CAMARA + '<span class="camara__destello"></span>';
+      cam.style.width = tam + "px";
+      cam.style.left = ((c + 0.15 + Math.random() * 0.45) * W / cols) + "px";
+      cam.style.top = ((f + 0.1 + Math.random() * 0.5) * H / filas) + "px";
+      const giro = (Math.random() - 0.5) * 30;
+      lote.appendChild(cam);
+      const t0 = i * PASO;
+      anims.push(cam.animate([{ opacity: 0, transform: "rotate(" + giro + "deg) scale(.4)" }, { opacity: 1, transform: "rotate(" + giro + "deg) scale(1)" }], { duration: 150, delay: t0, easing: "cubic-bezier(.2,1.4,.4,1)", fill: "both" }));
+      anims.push(cam.querySelector(".camara__destello").animate([{ opacity: 0, transform: "translate(-50%,-50%) scale(.2)" }, { opacity: 1, transform: "translate(-50%,-50%) scale(1)", offset: .25 }, { opacity: 0, transform: "translate(-50%,-50%) scale(1.7)" }], { duration: 300, delay: t0 + 130, easing: "ease-out", fill: "both" }));
+      anims.push(velo.animate([{ opacity: 0 }, { opacity: .3 }, { opacity: 0 }], { duration: 170, delay: t0 + 140, fill: "both" }));
+    });
+    const FINAL = N * PASO + 120;
+    try {
+      // el flash grande tapa la pantalla; ahí se cambia de sala
+      await velo.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 140, delay: FINAL, easing: "ease-in", fill: "forwards" }).finished;
+      anims.forEach((x) => { try { x.cancel(); } catch (e) { /* ya terminó */ } });
+      lote.style.visibility = "hidden";
+      await saltar(destino);
+      await espera(120);
+      await saltar(destino);
+      await velo.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 650, easing: "ease-out", fill: "forwards" }).finished;
+      await saltar(destino);
+    } finally {
+      capa.remove();
+      raiz.style.scrollBehavior = antes[0];
+      raiz.style.scrollSnapType = antes[1];
+    }
+  }
+
   async function brochazo(destino, color) {
     const raiz = document.documentElement;
     const antes = [raiz.style.scrollBehavior, raiz.style.scrollSnapType];
@@ -564,7 +619,9 @@
     if (pintando) return;
     pintando = true;
     const pared = getComputedStyle(destino).getPropertyValue("--pared").trim();
-    brochazo(destino, pared).finally(() => { pintando = false; });
+    const sala = destino.id.startsWith("sala-") ? D.salas[+destino.id.split("-")[1]] : null;
+    const efecto = sala && sala.transicion === "flash" ? flashes(destino) : brochazo(destino, pared);
+    efecto.finally(() => { pintando = false; });
   });
   /* ---------- sonido ambiente: sintetizado en el navegador, sin archivos, solo con un toque ---------- */
   const btnSonido = el("button", "sonido");

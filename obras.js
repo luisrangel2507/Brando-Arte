@@ -11,6 +11,8 @@
 //  Cobro automático (Mercado Pago): con "precio" y MP_ACCESS_TOKEN en Railway, "Comprar ahora"
 //  abre el checkout y, al aprobarse el pago, la obra se marca sola como vendida.
 //  "id" es opcional: por defecto se usa el nombre de la foto (s1-a) o "obra-N".
+//  Transición al entrar a una sala: "transicion" en la sala. "brochazo" (por defecto) o "flash"
+//  (cámaras fotográficas disparando).
 //  "artista": sección "Sobre el artista". Solo aparece cuando "texto" tiene párrafos.
 // ============================================================
 window.RECORRIDO = {
@@ -46,6 +48,7 @@ window.RECORRIDO = {
     {
       titulo: "Sala 2",
       subtitulo: "Escultura",
+      transicion: "flash",
       texto: "",
       pared: "#6e2b2a",
       obras: [

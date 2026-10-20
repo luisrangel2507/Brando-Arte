@@ -277,3 +277,11 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 @media (min-width: 801px) {
   .artista__cuerpo { grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 5rem); align-items: center; }
 }
+
+/* ---------- flashes de cámaras (transición) ---------- */
+.camaras { position: fixed; inset: 0; width: 100vw; height: 100svh; z-index: 100; pointer-events: none; overflow: hidden; }
+.camaras__lote { position: absolute; inset: 0; }
+.camara { position: absolute; opacity: 0; will-change: transform, opacity; filter: drop-shadow(0 .4rem .7rem #000a); }
+.camara svg { display: block; width: 100%; height: auto; }
+.camara__destello { position: absolute; left: 50%; top: 58%; width: 320%; aspect-ratio: 1; border-radius: 50%; opacity: 0; transform: translate(-50%, -50%) scale(.2); background: radial-gradient(circle, #fff 0%, #fffffff0 14%, #fff8 32%, #fff0 64%); mix-blend-mode: screen; }
+.camaras__velo { position: absolute; inset: 0; background: #fff; opacity: 0; }
