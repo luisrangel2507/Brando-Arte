@@ -60,7 +60,7 @@ window.RECORRIDO = {
     {
       titulo: "Sala 3",
       subtitulo: "Obra reciente",
-      transicionSalida: "pintura",
+      transicion: "pintura",
       texto: "Escribe aquí un párrafo corto sobre esta etapa del pintor.",
       pared: "#2d3850",
       obras: [
