@@ -8,6 +8,10 @@
 //  "reservada" o "vendida") y "pago" (enlace https de Stripe, Mercado Pago, etc.).
 //  Sin "pago", el botón lleva a una consulta por WhatsApp (ver "contacto").
 //  "objeto: true" muestra la obra como pieza (escultura) y no como cuadro.
+//  Cobro automático (Mercado Pago): con "precio" y MP_ACCESS_TOKEN en Railway, "Comprar ahora"
+//  abre el checkout y, al aprobarse el pago, la obra se marca sola como vendida.
+//  "id" es opcional: por defecto se usa el nombre de la foto (s1-a) o "obra-N".
+//  "artista": sección "Sobre el artista". Solo aparece cuando "texto" tiene párrafos.
 // ============================================================
 window.RECORRIDO = {
   pintor: "Brando Guerrero",
@@ -21,6 +25,12 @@ window.RECORRIDO = {
     "Su obra explora la figura humana y las emociones a través de trazos intensos y composiciones llenas de vida.",
     "Conoce más sobre sus obras y adéntrate en su universo creativo a través de este recorrido virtual."
   ],
+  artista: {
+    titulo: "Sobre el artista",
+    foto: "", // nombre de una foto dentro de obras/ (opcional)
+    texto: [], // un párrafo por elemento, por ejemplo: ["Primer párrafo.", "Segundo párrafo."]
+    datos: [] // línea de tiempo (opcional), por ejemplo: [{ anio: "2024", texto: "Exposición ..." }]
+  },
   salas: [
     {
       titulo: "Sala 1",

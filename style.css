@@ -84,7 +84,7 @@ a { color: inherit; }
 .visor[open] { display: grid; grid-template-columns: 1fr minmax(260px, 22rem); }
 .visor::backdrop { background: #000c; }
 .visor__img { display: grid; place-items: center; padding: 4rem 4rem 2rem; min-width: 0; }
-.visor__img .marco { height: min(calc(var(--h) * 0.85vh), 82vh); max-width: 100%; transform: none !important; }
+.visor__img .marco { height: min(calc(var(--h) * 0.85vh), 82vh); max-width: 100%; touch-action: none; cursor: zoom-in; }
 .visor__ficha { align-self: center; padding: 2rem 2rem 2rem 0; }
 .visor__ficha h2 { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
 .visor__meta { color: var(--laton); margin: .5rem 0 1rem; font-size: .95rem; }
@@ -232,3 +232,48 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 /* ---------- brochazo entre salas ---------- */
 .brocha { position: fixed; inset: 0; width: 100vw; height: 100svh; z-index: 100; pointer-events: none; }
+
+/* ---------- zoom en el visor ---------- */
+.visor__img { position: relative; }
+.visor__img .marco img { transform-origin: 50% 50%; will-change: transform; -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
+.visor__img .marco--zoom { cursor: grab; }
+.zoomhint { position: absolute; left: 0; right: 0; bottom: .45rem; margin: 0; text-align: center; font-size: .74rem; letter-spacing: .02em; color: #fffb; pointer-events: none; }
+@media (max-width: 800px) {
+  .visor__img { padding-bottom: 1.6rem; }
+}
+.visor__x, .visor__nav { z-index: 3; }
+
+/* ---------- compartir y avisos ---------- */
+.compartir { justify-self: start; margin-top: .9rem; padding: .5rem 0; background: none; border: 0; color: var(--laton); font: inherit; font-size: .92rem; text-decoration: underline; text-underline-offset: .25em; cursor: pointer; }
+.compartir:hover { color: var(--texto); }
+.aviso { position: fixed; left: 50%; bottom: max(1.2rem, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 200; max-width: min(92vw, 28rem); padding: .8rem 1.2rem; background: #17120ef2; color: var(--texto); border: 1px solid var(--laton); border-radius: .7rem; font-size: .92rem; line-height: 1.4; text-align: center; box-shadow: 0 .8rem 2rem #000a; }
+.aviso[hidden] { display: none; }
+
+/* ---------- sonido ambiente ---------- */
+.top__name { margin-right: auto; }
+.sonido { flex: none; width: 2.5rem; height: 2.5rem; margin-left: .6rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid #fff4; background: #0006; backdrop-filter: blur(4px); color: var(--texto); cursor: pointer; padding: 0; }
+.sonido svg { width: 1.35rem; height: 1.35rem; fill: currentColor; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.sonido svg .on, .sonido svg .off { fill: none; }
+.sonido[aria-pressed="false"] .on, .sonido[aria-pressed="true"] .off { display: none; }
+.sonido[aria-pressed="true"] { background: var(--laton); border-color: var(--laton); color: #1c1608; }
+@media (max-width: 800px) {
+  .top { padding-left: 1rem; padding-right: 1rem; }
+  .top__rooms { margin-left: 0; flex-wrap: nowrap; gap: .3rem; }
+  .top__rooms a { padding: .4rem .8rem; font-size: .86rem; white-space: nowrap; }
+  .sonido { margin-left: auto; }
+}
+
+/* ---------- sobre el artista ---------- */
+.artista { position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; scroll-snap-align: start; background: radial-gradient(120% 70% at 50% 0%, #c8a45a22, #0000 60%), #1b1512; }
+.artista__cuerpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-content: center; justify-items: start; padding: 6rem clamp(1.4rem, 8vw, 7rem) 2rem; }
+.artista__foto { margin: 0; width: min(100%, 22rem); padding: 1rem 1rem 0; background: #ececea; box-shadow: 0 1.4rem 2rem -1rem #000b; }
+.artista__foto img { display: block; width: 100%; height: auto; }
+.artista__texto { max-width: 58ch; display: grid; gap: .9rem; }
+.artista__texto h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; }
+.artista__texto .sub { color: var(--laton); font-weight: 500; margin: -.4rem 0 .4rem; }
+.artista__texto p { margin: 0; color: #e6e0d4; }
+.artista__datos { list-style: none; padding: 0; margin: .6rem 0 0; display: grid; gap: .55rem; border-left: 2px solid #c8a45a77; padding-left: 1rem; }
+.artista__datos b { display: inline-block; min-width: 3.6rem; font-weight: 600; color: var(--laton); }
+@media (min-width: 801px) {
+  .artista__cuerpo { grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+}
