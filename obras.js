@@ -11,8 +11,9 @@
 //  Cobro automático (Mercado Pago): con "precio" y MP_ACCESS_TOKEN en Railway, "Comprar ahora"
 //  abre el checkout y, al aprobarse el pago, la obra se marca sola como vendida.
 //  "id" es opcional: por defecto se usa el nombre de la foto (s1-a) o "obra-N".
-//  Transición al entrar a una sala: "transicion" en la sala. "brochazo" (por defecto) o "flash"
-//  (cámaras fotográficas disparando).
+//  Transición: "transicion" en una sala = efecto al entrar a ella. "transicionSalida" = efecto al
+//  tocar su puerta de salida (manda sobre el anterior). Valores: "brochazo" (por defecto),
+//  "flash" (cámaras fotográficas) o "pintura" (chorros de pintura que caen desde arriba).
 //  "artista": sección "Sobre el artista". Solo aparece cuando "texto" tiene párrafos.
 // ============================================================
 window.RECORRIDO = {
@@ -59,6 +60,7 @@ window.RECORRIDO = {
     {
       titulo: "Sala 3",
       subtitulo: "Obra reciente",
+      transicionSalida: "pintura",
       texto: "Escribe aquí un párrafo corto sobre esta etapa del pintor.",
       pared: "#2d3850",
       obras: [

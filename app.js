@@ -691,6 +691,66 @@
     }
   }
 
+  /* ---------- chorros de pintura que caen desde arriba (transicion: "pintura") ---------- */
+  const PINTURAS = ["#c0262c", "#e6b422", "#1d9a9b", "#7b2a8c", "#d9621e", "#1a1a1d", "#f1ece2"];
+
+  async function pintura(destino, color) {
+    const raiz = document.documentElement;
+    const antes = [raiz.style.scrollBehavior, raiz.style.scrollSnapType];
+    raiz.style.scrollBehavior = "auto";
+    raiz.style.scrollSnapType = "none";
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "brocha");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("preserveAspectRatio", "none");
+    svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML =
+      '<defs><filter id="pintura-aspera" x="-10%" y="-5%" width="120%" height="110%">' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.09 0.11" numOctaves="2" seed="11" result="r"/>' +
+      '<feDisplacementMap in="SourceGraphic" in2="r" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>' +
+      '</filter></defs><g filter="url(#pintura-aspera)"></g>';
+    document.body.appendChild(svg);
+    const g = svg.querySelector("g");
+    const azar = (a, b) => a + Math.random() * (b - a);
+    const mezcla = (lista) => lista.slice().sort(() => Math.random() - 0.5);
+    const chorros = [];
+    // capa 1: chorros finos y rápidos de varios colores; capa 2: chorros gruesos; capa 3: el color de la sala que cubre todo
+    const capa = (n, ancho, colores, retraso, dur, jitter) => {
+      for (let i = 0; i < n; i++) {
+        const x = ((i + 0.5) / n) * 100 + azar(-jitter, jitter);
+        const p = document.createElementNS(NS, "path");
+        p.setAttribute("d", "M " + x.toFixed(1) + " -8 C " + (x + azar(-3, 3)).toFixed(1) + " 30, " + (x + azar(-3, 3)).toFixed(1) + " 70, " + (x + azar(-1.5, 1.5)).toFixed(1) + " 108");
+        p.setAttribute("pathLength", "1");
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke", colores[i % colores.length]);
+        p.setAttribute("stroke-width", String(ancho * azar(0.85, 1.2)));
+        p.setAttribute("stroke-linecap", "round");
+        p.style.strokeDasharray = "1 1.02";
+        p.style.strokeDashoffset = "1";
+        g.appendChild(p);
+        chorros.push({ p, ret: azar(retraso[0], retraso[1]), dur: azar(dur[0], dur[1]) });
+      }
+    };
+    capa(16, 3.4, mezcla(PINTURAS), [0, 260], [520, 780], 3);
+    capa(9, 15, mezcla(PINTURAS), [140, 420], [680, 960], 2.5);
+    capa(9, 17, [color || "#17120e"], [420, 600], [560, 720], 1.5);
+    const caer = (desde, hasta, extra, curva) => Promise.all(chorros.map(({ p, ret, dur }) =>
+      p.animate([{ strokeDashoffset: desde }, { strokeDashoffset: hasta }],
+        { duration: extra ? 520 : dur, delay: extra ? azar(0, 220) : ret, easing: curva, fill: "forwards" }).finished));
+    try {
+      await caer(1, 0, false, "cubic-bezier(.45,.05,.8,.5)");     // la pintura cae y cubre la pantalla
+      await saltar(destino);
+      await espera(120);
+      await saltar(destino);
+      await caer(0, -1, true, "cubic-bezier(.5,0,.9,.55)");      // y escurre hacia abajo dejando ver la sala nueva
+      await saltar(destino);
+    } finally {
+      svg.remove();
+      raiz.style.scrollBehavior = antes[0];
+      raiz.style.scrollSnapType = antes[1];
+    }
+  }
+
   async function brochazo(destino, color) {
     const raiz = document.documentElement;
     const antes = [raiz.style.scrollBehavior, raiz.style.scrollSnapType];
@@ -743,9 +803,13 @@
     if (pintando) return;
     pintando = true;
     const pared = getComputedStyle(destino).getPropertyValue("--pared").trim();
-    const sala = destino.id.startsWith("sala-") ? D.salas[+destino.id.split("-")[1]] : null;
-    const efecto = sala && sala.transicion === "flash" ? flashes(destino) : brochazo(destino, pared);
-    efecto.finally(() => { pintando = false; });
+    const salaDe = (nodo) => (nodo && nodo.id && nodo.id.startsWith("sala-") ? D.salas[+nodo.id.split("-")[1]] : null);
+    const llegada = salaDe(destino);
+    const salida = a.classList.contains("puerta") ? salaDe(a.closest(".sala")) : null;
+    // "transicionSalida" de la sala de origen (al tocar su puerta) manda sobre "transicion" de la sala de llegada
+    const tipo = (salida && salida.transicionSalida) || (llegada && llegada.transicion) || "brochazo";
+    const efectos = { flash: () => flashes(destino), pintura: () => pintura(destino, pared), brochazo: () => brochazo(destino, pared) };
+    (efectos[tipo] || efectos.brochazo)().finally(() => { pintando = false; });
   });
   /* ---------- sonido ambiente: sintetizado en el navegador, sin archivos, solo con un toque ---------- */
   const btnSonido = el("button", "sonido");
