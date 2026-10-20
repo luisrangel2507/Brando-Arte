@@ -283,5 +283,9 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .camaras__lote { position: absolute; inset: 0; }
 .camara { position: absolute; opacity: 0; will-change: transform, opacity; filter: drop-shadow(0 .4rem .7rem #000a); }
 .camara svg { display: block; width: 100%; height: auto; }
-.camara__destello { position: absolute; left: 50%; top: 58%; width: 320%; aspect-ratio: 1; border-radius: 50%; opacity: 0; transform: translate(-50%, -50%) scale(.2); background: radial-gradient(circle, #fff 0%, #fffffff0 14%, #fff8 32%, #fff0 64%); mix-blend-mode: screen; }
+.camara__destello { position: absolute; left: var(--fx, 50%); top: var(--fy, 20%); width: 340%; aspect-ratio: 1; border-radius: 50%; opacity: 0; transform: translate(-50%, -50%) scale(.2); background: radial-gradient(circle, #fff 0%, #fffffff0 12%, #fff9 30%, #fff0 62%); mix-blend-mode: screen; }
+.camara__destello::before { /* destello en estrella, como el de una lente real */
+  content: ""; position: absolute; inset: 6%; border-radius: 50%;
+  background: repeating-conic-gradient(from 12deg, #ffffffd9 0 1.6deg, #fff0 1.6deg 22.5deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0, #0000 68%); mask-image: radial-gradient(circle, #000 0, #0000 68%); }
 .camaras__velo { position: absolute; inset: 0; background: #fff; opacity: 0; }

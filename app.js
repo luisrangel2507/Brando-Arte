@@ -513,7 +513,116 @@
   }
 
   /* ---------- flashes de cámaras fotográficas (transición de las salas con transicion: "flash") ---------- */
-  const CAMARA = '<svg viewBox="0 0 64 48" aria-hidden="true"><path d="M8 12h10l4-6h20l4 6h10a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z" fill="#15110e" stroke="#d9d2c3" stroke-width="2"/><circle cx="32" cy="28" r="12" fill="#0a0a0a" stroke="#d9d2c3" stroke-width="2"/><circle cx="32" cy="28" r="7" fill="#1c3a5a"/><circle cx="29" cy="25" r="2.2" fill="#fff" opacity=".85"/><rect x="9" y="16" width="9" height="5" rx="1.5" fill="#efe9de"/></svg>';
+  // Dibujos de cámaras (réflex y compacta). k = sufijo único para los ids de los degradados.
+  function camaraSvg(tipo, k) {
+    const d = (id) => id + k;
+    if (tipo === "compacta") {
+      return `<svg viewBox="0 0 120 80" aria-hidden="true"><defs>
+  <linearGradient id="${d('pl')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f5f6"/><stop offset=".45" stop-color="#b9bcc1"/><stop offset="1" stop-color="#7d8086"/></linearGradient>
+  <linearGradient id="${d('cu')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34343a"/><stop offset="1" stop-color="#0d0d10"/></linearGradient>
+  <radialGradient id="${d('vi')}" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#bfe3ff"/><stop offset=".22" stop-color="#2d5f9a"/><stop offset=".6" stop-color="#0c1c36"/><stop offset="1" stop-color="#02050a"/></radialGradient>
+  <linearGradient id="${d('me')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe2e6"/><stop offset=".5" stop-color="#6d7076"/><stop offset="1" stop-color="#c7cacf"/></linearGradient>
+  <linearGradient id="${d('fl')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd6e4"/></linearGradient>
+  <pattern id="${d('pa')}" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".55" fill="#000" opacity=".5"/></pattern></defs>
+  <rect x="5" y="6" width="110" height="68" rx="8" fill="url(#${d('cu')})"/>
+  <rect x="5" y="6" width="110" height="68" rx="8" fill="url(#${d('pa')})"/>
+  <path d="M5 14a8 8 0 0 1 8-8h94a8 8 0 0 1 8 8v16H5z" fill="url(#${d('pl')})"/>
+  <rect x="5" y="29" width="110" height="1.6" fill="#4a4d52"/>
+  <rect x="11" y="12" width="34" height="14" rx="2.5" fill="url(#${d('fl')})" stroke="#8b8f96" stroke-width="1.2"/>
+  <g stroke="#b8c0d0" stroke-width=".6" opacity=".9">${[...Array(9)].map((_, i) => `<line x1="${14 + i * 3.6}" y1="13.5" x2="${14 + i * 3.6}" y2="24.5"/>`).join('')}</g>
+  <rect x="52" y="12.5" width="13" height="9" rx="1.6" fill="#10151d" stroke="#8b8f96" stroke-width="1"/><circle cx="55" cy="15" r="1.4" fill="#6fa8e6" opacity=".7"/>
+  <circle cx="97" cy="8.5" r="4.6" fill="url(#${d('me')})" stroke="#42454a" stroke-width=".8"/><circle cx="97" cy="8.5" r="2.4" fill="#c0262c"/>
+  <rect x="76" y="7" width="12" height="5" rx="1.6" fill="url(#${d('me')})" stroke="#42454a" stroke-width=".6"/>
+  <circle cx="78" cy="49" r="25" fill="#09090b" stroke="#2b2d31" stroke-width="2"/>
+  <circle cx="78" cy="49" r="23" fill="url(#${d('me')})"/>
+  <circle cx="78" cy="49" r="22.3" fill="none" stroke="#1a1b1e" stroke-width="2.2" stroke-dasharray="1.1 1.5" opacity=".75"/>
+  <circle cx="78" cy="49" r="18.6" fill="#0d0e10" stroke="#53565c" stroke-width="1.3"/>
+  <circle cx="78" cy="49" r="16" fill="url(#${d('vi')})"/>
+  <circle cx="78" cy="49" r="11.5" fill="none" stroke="#8a3aa6" stroke-width="1.1" opacity=".55"/>
+  <circle cx="78" cy="49" r="7.5" fill="none" stroke="#2f8a6a" stroke-width=".9" opacity=".5"/>
+  <circle cx="78" cy="49" r="4.6" fill="#03060c"/>
+  <ellipse cx="71.4" cy="42.6" rx="5.6" ry="3.1" transform="rotate(-38 71.4 42.6)" fill="#fff" opacity=".78"/>
+  <circle cx="84.8" cy="55.8" r="1.7" fill="#cfe6ff" opacity=".7"/>
+  <rect x="9" y="38" width="8" height="2.6" rx="1.2" fill="#c0262c"/>
+  </svg>`;
+    }
+    // réflex
+    return `<svg viewBox="0 0 120 92" aria-hidden="true"><defs>
+  <linearGradient id="${d('cu')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3b41"/><stop offset=".5" stop-color="#1a1a1e"/><stop offset="1" stop-color="#0b0b0d"/></linearGradient>
+  <linearGradient id="${d('me')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4e6ea"/><stop offset=".45" stop-color="#6b6e74"/><stop offset="1" stop-color="#b9bcc2"/></linearGradient>
+  <linearGradient id="${d('ba')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5c62"/><stop offset=".5" stop-color="#17181b"/><stop offset="1" stop-color="#3a3c41"/></linearGradient>
+  <radialGradient id="${d('vi')}" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="#cfeaff"/><stop offset=".2" stop-color="#3a74b4"/><stop offset=".55" stop-color="#0d2142"/><stop offset="1" stop-color="#02050b"/></radialGradient>
+  <linearGradient id="${d('fl')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#c9d1e2"/></linearGradient>
+  <pattern id="${d('pa')}" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".55" fill="#000" opacity=".55"/></pattern></defs>
+  <path d="M36 25 44 9h32l8 16z" fill="url(#${d('cu')})" stroke="#0a0a0c" stroke-width="1"/>
+  <rect x="49" y="10.5" width="22" height="9" rx="2" fill="url(#${d('fl')})" stroke="#8d9199" stroke-width="1.1"/>
+  <g stroke="#b6bfd2" stroke-width=".55">${[...Array(10)].map((_, i) => `<line x1="${51.2 + i * 2}" y1="11.6" x2="${51.2 + i * 2}" y2="18.6"/>`).join('')}</g>
+  <rect x="5" y="22" width="110" height="66" rx="10" fill="url(#${d('cu')})"/>
+  <rect x="5" y="22" width="110" height="66" rx="10" fill="url(#${d('pa')})"/>
+  <rect x="5" y="22" width="110" height="3.4" rx="1.7" fill="#4a4c52" opacity=".8"/>
+  <rect x="11" y="14" width="17" height="9" rx="2.4" fill="url(#${d('me')})" stroke="#2a2c30" stroke-width=".8"/>
+  <g stroke="#1b1c1f" stroke-width=".8">${[...Array(6)].map((_, i) => `<line x1="${13.4 + i * 2.6}" y1="15" x2="${13.4 + i * 2.6}" y2="22"/>`).join('')}</g>
+  <circle cx="97" cy="19.5" r="5.6" fill="url(#${d('me')})" stroke="#2a2c30" stroke-width=".9"/><circle cx="97" cy="19.5" r="3" fill="#c0262c"/>
+  <rect x="85" y="14" width="8" height="8" rx="2" fill="url(#${d('ba')})" stroke="#2a2c30" stroke-width=".6"/>
+  <rect x="2" y="33" width="5" height="9" rx="1.6" fill="url(#${d('me')})"/><rect x="113" y="33" width="5" height="9" rx="1.6" fill="url(#${d('me')})"/>
+  <path d="M95 40h14a5 5 0 0 1 5 5v35a6 6 0 0 1-6 6H95z" fill="#222226" opacity=".55"/>
+  <rect x="98" y="34" width="9" height="3.2" rx="1.4" fill="#c0262c"/>
+  <circle cx="56" cy="57" r="31.5" fill="#08080a" stroke="#2c2e32" stroke-width="2.2"/>
+  <circle cx="56" cy="57" r="29.5" fill="url(#${d('ba')})"/>
+  <circle cx="56" cy="57" r="28.4" fill="none" stroke="#050506" stroke-width="3.4" stroke-dasharray="1.2 1.7" opacity=".8"/>
+  <circle cx="56" cy="57" r="24.4" fill="url(#${d('me')})" stroke="#15161a" stroke-width="1.2"/>
+  <circle cx="56" cy="57" r="22.6" fill="#0c0d10" stroke="#55585e" stroke-width="1.3"/>
+  <circle cx="56" cy="57" r="19.4" fill="url(#${d('vi')})"/>
+  <circle cx="56" cy="57" r="14.6" fill="none" stroke="#8a3aa6" stroke-width="1.3" opacity=".55"/>
+  <circle cx="56" cy="57" r="10.4" fill="none" stroke="#2f8a6a" stroke-width="1" opacity=".5"/>
+  <circle cx="56" cy="57" r="6.4" fill="#03060c"/>
+  <circle cx="56" cy="57" r="2.4" fill="#0f2a52" opacity=".9"/>
+  <ellipse cx="47.6" cy="48.4" rx="7" ry="3.7" transform="rotate(-38 47.6 48.4)" fill="#fff" opacity=".8"/>
+  <circle cx="65.2" cy="66.4" r="2" fill="#d4e9ff" opacity=".7"/>
+  <circle cx="56" cy="57" r="31.5" fill="none" stroke="#ffffff" stroke-opacity=".08" stroke-width="1"/>
+  </svg>`;
+  }
+
+  // posición del flash de cada modelo, en % del dibujo
+  const FLASH_EN = { reflex: [50, 16], compacta: [23, 24] };
+
+  /* sonido de obturador: clic del espejo + cortinilla + golpe seco, generado en el navegador */
+  let ruidoBuf = null;
+  function obturador(ctx, salida, cuando, fuerza) {
+    if (!ruidoBuf || ruidoBuf.sampleRate !== ctx.sampleRate) {
+      ruidoBuf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.6), ctx.sampleRate);
+      const d = ruidoBuf.getChannelData(0);
+      for (let n = 0; n < d.length; n++) d[n] = Math.random() * 2 - 1;
+    }
+    const t = ctx.currentTime + cuando;
+    const golpe = (inicio, dur, freq, q, vol) => {
+      const src = ctx.createBufferSource();
+      src.buffer = ruidoBuf;
+      const f = ctx.createBiquadFilter();
+      f.type = "bandpass";
+      f.frequency.value = freq * (0.9 + Math.random() * 0.2);
+      f.Q.value = q;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, inicio);
+      g.gain.linearRampToValueAtTime(vol, inicio + 0.002);
+      g.gain.exponentialRampToValueAtTime(0.0001, inicio + dur);
+      src.connect(f); f.connect(g); g.connect(salida);
+      src.start(inicio, Math.random() * 0.4);
+      src.stop(inicio + dur + 0.03);
+    };
+    golpe(t, 0.035, 3300, 1.2, 0.9 * fuerza);          // espejo
+    golpe(t + 0.052, 0.055, 2300, 0.9, 0.7 * fuerza);  // cortinilla
+    const o = ctx.createOscillator();
+    o.type = "sine";
+    o.frequency.setValueAtTime(190, t);
+    o.frequency.exponentialRampToValueAtTime(70, t + 0.05);
+    const go = ctx.createGain();
+    go.gain.setValueAtTime(0.5 * fuerza, t);
+    go.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+    o.connect(go); go.connect(salida);
+    o.start(t); o.stop(t + 0.09);
+  }
+
 
   async function flashes(destino) {
     const raiz = document.documentElement;
@@ -533,23 +642,32 @@
     const celdas = [];
     for (let c = 0; c < cols; c++) for (let f = 0; f < filas; f++) celdas.push([c, f]);
     celdas.sort(() => Math.random() - 0.5);
-    const tam = Math.max(56, Math.min(W, H) * 0.19);
+    const tam = Math.max(72, Math.min(W, H) * 0.23);
     const N = 8, PASO = 85;
     const anims = [];
+    // el obturador solo suena si el usuario encendió el sonido
+    const conSonido = !!(audio && btnSonido.getAttribute("aria-pressed") === "true" && audio.ctx.state === "running");
+    let salida = null;
+    if (conSonido) { salida = audio.ctx.createGain(); salida.gain.value = 0.6; salida.connect(audio.ctx.destination); }
     celdas.slice(0, N).forEach(([c, f], i) => {
       const cam = el("div", "camara");
-      cam.innerHTML = CAMARA + '<span class="camara__destello"></span>';
+      const modelo = i % 2 ? "compacta" : "reflex";
+      cam.innerHTML = camaraSvg(modelo, i) + '<span class="camara__destello"></span>';
+      cam.style.setProperty("--fx", FLASH_EN[modelo][0] + "%");
+      cam.style.setProperty("--fy", FLASH_EN[modelo][1] + "%");
       cam.style.width = tam + "px";
       cam.style.left = ((c + 0.15 + Math.random() * 0.45) * W / cols) + "px";
       cam.style.top = ((f + 0.1 + Math.random() * 0.5) * H / filas) + "px";
       const giro = (Math.random() - 0.5) * 30;
       lote.appendChild(cam);
       const t0 = i * PASO;
+      if (conSonido) obturador(audio.ctx, salida, (t0 + 130 + Math.random() * 12) / 1000, 0.75 + Math.random() * 0.3);
       anims.push(cam.animate([{ opacity: 0, transform: "rotate(" + giro + "deg) scale(.4)" }, { opacity: 1, transform: "rotate(" + giro + "deg) scale(1)" }], { duration: 150, delay: t0, easing: "cubic-bezier(.2,1.4,.4,1)", fill: "both" }));
       anims.push(cam.querySelector(".camara__destello").animate([{ opacity: 0, transform: "translate(-50%,-50%) scale(.2)" }, { opacity: 1, transform: "translate(-50%,-50%) scale(1)", offset: .25 }, { opacity: 0, transform: "translate(-50%,-50%) scale(1.7)" }], { duration: 300, delay: t0 + 130, easing: "ease-out", fill: "both" }));
       anims.push(velo.animate([{ opacity: 0 }, { opacity: .3 }, { opacity: 0 }], { duration: 170, delay: t0 + 140, fill: "both" }));
     });
     const FINAL = N * PASO + 120;
+    if (conSonido) obturador(audio.ctx, salida, (FINAL + 10) / 1000, 1.15);
     try {
       // el flash grande tapa la pantalla; ahí se cambia de sala
       await velo.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 140, delay: FINAL, easing: "ease-in", fill: "forwards" }).finished;
