@@ -252,4 +252,77 @@
     if (e.key === "ArrowRight") mover(1);
   });
   visor.addEventListener("click", (e) => { if (e.target === visor) visor.close(); });
+
+  /* ---------- brochazo al pasar de sala en sala ---------- */
+  const NS = "http://www.w3.org/2000/svg";
+  const sinMov = matchMedia("(prefers-reduced-motion: reduce)");
+  let pintando = false;
+
+  function capaBrocha() {
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "brocha");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("preserveAspectRatio", "none");
+    svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML =
+      '<defs><filter id="brocha-aspero" x="-5%" y="-5%" width="110%" height="110%">' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.035 0.4" numOctaves="3" seed="7" result="r"/>' +
+      '<feDisplacementMap in="SourceGraphic" in2="r" scale="7" xChannelSelector="R" yChannelSelector="G"/>' +
+      '</filter></defs><g filter="url(#brocha-aspero)"></g>';
+    document.body.appendChild(svg);
+    return svg;
+  }
+
+  // franjas anchas con ondulación; las pares van de izquierda a derecha y las impares al revés
+  const FRANJAS = [
+    "M -15 10 Q 20 2 50 12 T 115 8",
+    "M 115 36 Q 80 28 50 38 T -15 34",
+    "M -15 62 Q 25 54 55 64 T 115 60",
+    "M 115 88 Q 75 80 45 90 T -15 86"
+  ];
+
+  async function brochazo(destino, color) {
+    const svg = capaBrocha();
+    const g = svg.querySelector("g");
+    const trazos = [];
+    [["#c8a45a", 0], [color || "#2a2220", 170]].forEach(([c, retraso]) => {
+      FRANJAS.forEach((d, i) => {
+        const p = document.createElementNS(NS, "path");
+        p.setAttribute("d", d);
+        p.setAttribute("pathLength", "1");
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke", c);
+        p.setAttribute("stroke-width", "34");
+        p.setAttribute("stroke-linecap", "round");
+        p.style.strokeDasharray = "1 1.01";
+        p.style.strokeDashoffset = "1";
+        g.appendChild(p);
+        trazos.push({ p, i, retraso });
+      });
+    });
+    const correr = (desde, hasta, dur, base) => Promise.all(trazos.map(({ p, i, retraso }) =>
+      p.animate([{ strokeDashoffset: desde }, { strokeDashoffset: hasta }],
+        { duration: dur, delay: base + retraso * (desde === 1 ? 1 : 0.6) + i * 70, easing: "cubic-bezier(.6,.05,.3,1)", fill: "forwards" }).finished));
+    await correr(1, 0, 420, 0);          // cubre la pantalla
+    const h = document.documentElement.style;
+    h.scrollBehavior = "auto";
+    destino.scrollIntoView({ block: "start" });
+    h.scrollBehavior = "";
+    await new Promise((r) => setTimeout(r, 90));
+    await correr(0, -1, 420, 0);         // se va dejando la nueva sala
+    svg.remove();
+  }
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#sala-"], a.puerta, #top-name');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+    const destino = document.querySelector(a.getAttribute("href"));
+    if (!destino) return;
+    e.preventDefault();
+    if (sinMov.matches || !Element.prototype.animate) { destino.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+    if (pintando) return;
+    pintando = true;
+    const pared = getComputedStyle(destino).getPropertyValue("--pared").trim();
+    brochazo(destino, pared).finally(() => { pintando = false; });
+  });
 })();

@@ -229,3 +229,6 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .visor__ficha h2 { font-size: 1.5rem; }
   .visor__nav { top: calc(3.6rem + 19svh); }
 }
+
+/* ---------- brochazo entre salas ---------- */
+.brocha { position: fixed; inset: 0; width: 100vw; height: 100svh; z-index: 100; pointer-events: none; }
