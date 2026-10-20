@@ -281,6 +281,25 @@
     "M 115 88 Q 75 80 45 90 T -15 86"
   ];
 
+  // salto inmediato (sin animación ni imán de scroll), pensado para que también funcione en iOS
+  async function saltar(destino) {
+    const raiz = document.documentElement;
+    const antes = [raiz.style.scrollBehavior, raiz.style.scrollSnapType];
+    raiz.style.scrollBehavior = "auto";
+    raiz.style.scrollSnapType = "none";
+    const fila = () => new Promise((r) => requestAnimationFrame(() => r()));
+    for (let i = 0; i < 3; i++) {
+      const y = Math.round(destino.getBoundingClientRect().top + window.pageYOffset);
+      window.scrollTo(0, y);
+      document.scrollingElement.scrollTop = y;
+      await fila();
+      if (Math.abs(destino.getBoundingClientRect().top) <= 2) break;
+    }
+    await fila();
+    raiz.style.scrollBehavior = antes[0];
+    raiz.style.scrollSnapType = antes[1];
+  }
+
   async function brochazo(destino, color) {
     const svg = capaBrocha();
     const g = svg.querySelector("g");
@@ -304,10 +323,7 @@
       p.animate([{ strokeDashoffset: desde }, { strokeDashoffset: hasta }],
         { duration: dur, delay: base + retraso * (desde === 1 ? 1 : 0.6) + i * 70, easing: "cubic-bezier(.6,.05,.3,1)", fill: "forwards" }).finished));
     await correr(1, 0, 420, 0);          // cubre la pantalla
-    const h = document.documentElement.style;
-    h.scrollBehavior = "auto";
-    destino.scrollIntoView({ block: "start" });
-    h.scrollBehavior = "";
+    await saltar(destino);
     await new Promise((r) => setTimeout(r, 90));
     await correr(0, -1, 420, 0);         // se va dejando la nueva sala
     svg.remove();
