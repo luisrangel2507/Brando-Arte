@@ -513,78 +513,84 @@
   }
 
   /* ---------- flashes de cámaras fotográficas (transición de las salas con transicion: "flash") ---------- */
-  // Dibujos de cámaras (réflex y compacta). k = sufijo único para los ids de los degradados.
+  // Cámara mirrorless profesional con el flash emergente levantado (sin marcas ni textos).
+  // k = sufijo único para los ids de los degradados.
   function camaraSvg(tipo, k) {
     const d = (id) => id + k;
-    if (tipo === "compacta") {
-      return `<svg viewBox="0 0 120 80" aria-hidden="true"><defs>
-  <linearGradient id="${d('pl')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f5f6"/><stop offset=".45" stop-color="#b9bcc1"/><stop offset="1" stop-color="#7d8086"/></linearGradient>
-  <linearGradient id="${d('cu')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34343a"/><stop offset="1" stop-color="#0d0d10"/></linearGradient>
-  <radialGradient id="${d('vi')}" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#bfe3ff"/><stop offset=".22" stop-color="#2d5f9a"/><stop offset=".6" stop-color="#0c1c36"/><stop offset="1" stop-color="#02050a"/></radialGradient>
-  <linearGradient id="${d('me')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe2e6"/><stop offset=".5" stop-color="#6d7076"/><stop offset="1" stop-color="#c7cacf"/></linearGradient>
-  <linearGradient id="${d('fl')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd6e4"/></linearGradient>
-  <pattern id="${d('pa')}" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".55" fill="#000" opacity=".5"/></pattern></defs>
-  <rect x="5" y="6" width="110" height="68" rx="8" fill="url(#${d('cu')})"/>
-  <rect x="5" y="6" width="110" height="68" rx="8" fill="url(#${d('pa')})"/>
-  <path d="M5 14a8 8 0 0 1 8-8h94a8 8 0 0 1 8 8v16H5z" fill="url(#${d('pl')})"/>
-  <rect x="5" y="29" width="110" height="1.6" fill="#4a4d52"/>
-  <rect x="11" y="12" width="34" height="14" rx="2.5" fill="url(#${d('fl')})" stroke="#8b8f96" stroke-width="1.2"/>
-  <g stroke="#b8c0d0" stroke-width=".6" opacity=".9">${[...Array(9)].map((_, i) => `<line x1="${14 + i * 3.6}" y1="13.5" x2="${14 + i * 3.6}" y2="24.5"/>`).join('')}</g>
-  <rect x="52" y="12.5" width="13" height="9" rx="1.6" fill="#10151d" stroke="#8b8f96" stroke-width="1"/><circle cx="55" cy="15" r="1.4" fill="#6fa8e6" opacity=".7"/>
-  <circle cx="97" cy="8.5" r="4.6" fill="url(#${d('me')})" stroke="#42454a" stroke-width=".8"/><circle cx="97" cy="8.5" r="2.4" fill="#c0262c"/>
-  <rect x="76" y="7" width="12" height="5" rx="1.6" fill="url(#${d('me')})" stroke="#42454a" stroke-width=".6"/>
-  <circle cx="78" cy="49" r="25" fill="#09090b" stroke="#2b2d31" stroke-width="2"/>
-  <circle cx="78" cy="49" r="23" fill="url(#${d('me')})"/>
-  <circle cx="78" cy="49" r="22.3" fill="none" stroke="#1a1b1e" stroke-width="2.2" stroke-dasharray="1.1 1.5" opacity=".75"/>
-  <circle cx="78" cy="49" r="18.6" fill="#0d0e10" stroke="#53565c" stroke-width="1.3"/>
-  <circle cx="78" cy="49" r="16" fill="url(#${d('vi')})"/>
-  <circle cx="78" cy="49" r="11.5" fill="none" stroke="#8a3aa6" stroke-width="1.1" opacity=".55"/>
-  <circle cx="78" cy="49" r="7.5" fill="none" stroke="#2f8a6a" stroke-width=".9" opacity=".5"/>
-  <circle cx="78" cy="49" r="4.6" fill="#03060c"/>
-  <ellipse cx="71.4" cy="42.6" rx="5.6" ry="3.1" transform="rotate(-38 71.4 42.6)" fill="#fff" opacity=".78"/>
-  <circle cx="84.8" cy="55.8" r="1.7" fill="#cfe6ff" opacity=".7"/>
-  <rect x="9" y="38" width="8" height="2.6" rx="1.2" fill="#c0262c"/>
-  </svg>`;
-    }
-    // réflex
-    return `<svg viewBox="0 0 120 92" aria-hidden="true"><defs>
-  <linearGradient id="${d('cu')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3b41"/><stop offset=".5" stop-color="#1a1a1e"/><stop offset="1" stop-color="#0b0b0d"/></linearGradient>
-  <linearGradient id="${d('me')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4e6ea"/><stop offset=".45" stop-color="#6b6e74"/><stop offset="1" stop-color="#b9bcc2"/></linearGradient>
-  <linearGradient id="${d('ba')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5c62"/><stop offset=".5" stop-color="#17181b"/><stop offset="1" stop-color="#3a3c41"/></linearGradient>
-  <radialGradient id="${d('vi')}" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="#cfeaff"/><stop offset=".2" stop-color="#3a74b4"/><stop offset=".55" stop-color="#0d2142"/><stop offset="1" stop-color="#02050b"/></radialGradient>
-  <linearGradient id="${d('fl')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#c9d1e2"/></linearGradient>
-  <pattern id="${d('pa')}" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".55" fill="#000" opacity=".55"/></pattern></defs>
-  <path d="M36 25 44 9h32l8 16z" fill="url(#${d('cu')})" stroke="#0a0a0c" stroke-width="1"/>
-  <rect x="49" y="10.5" width="22" height="9" rx="2" fill="url(#${d('fl')})" stroke="#8d9199" stroke-width="1.1"/>
-  <g stroke="#b6bfd2" stroke-width=".55">${[...Array(10)].map((_, i) => `<line x1="${51.2 + i * 2}" y1="11.6" x2="${51.2 + i * 2}" y2="18.6"/>`).join('')}</g>
-  <rect x="5" y="22" width="110" height="66" rx="10" fill="url(#${d('cu')})"/>
-  <rect x="5" y="22" width="110" height="66" rx="10" fill="url(#${d('pa')})"/>
-  <rect x="5" y="22" width="110" height="3.4" rx="1.7" fill="#4a4c52" opacity=".8"/>
-  <rect x="11" y="14" width="17" height="9" rx="2.4" fill="url(#${d('me')})" stroke="#2a2c30" stroke-width=".8"/>
-  <g stroke="#1b1c1f" stroke-width=".8">${[...Array(6)].map((_, i) => `<line x1="${13.4 + i * 2.6}" y1="15" x2="${13.4 + i * 2.6}" y2="22"/>`).join('')}</g>
-  <circle cx="97" cy="19.5" r="5.6" fill="url(#${d('me')})" stroke="#2a2c30" stroke-width=".9"/><circle cx="97" cy="19.5" r="3" fill="#c0262c"/>
-  <rect x="85" y="14" width="8" height="8" rx="2" fill="url(#${d('ba')})" stroke="#2a2c30" stroke-width=".6"/>
-  <rect x="2" y="33" width="5" height="9" rx="1.6" fill="url(#${d('me')})"/><rect x="113" y="33" width="5" height="9" rx="1.6" fill="url(#${d('me')})"/>
-  <path d="M95 40h14a5 5 0 0 1 5 5v35a6 6 0 0 1-6 6H95z" fill="#222226" opacity=".55"/>
-  <rect x="98" y="34" width="9" height="3.2" rx="1.4" fill="#c0262c"/>
-  <circle cx="56" cy="57" r="31.5" fill="#08080a" stroke="#2c2e32" stroke-width="2.2"/>
-  <circle cx="56" cy="57" r="29.5" fill="url(#${d('ba')})"/>
-  <circle cx="56" cy="57" r="28.4" fill="none" stroke="#050506" stroke-width="3.4" stroke-dasharray="1.2 1.7" opacity=".8"/>
-  <circle cx="56" cy="57" r="24.4" fill="url(#${d('me')})" stroke="#15161a" stroke-width="1.2"/>
-  <circle cx="56" cy="57" r="22.6" fill="#0c0d10" stroke="#55585e" stroke-width="1.3"/>
-  <circle cx="56" cy="57" r="19.4" fill="url(#${d('vi')})"/>
-  <circle cx="56" cy="57" r="14.6" fill="none" stroke="#8a3aa6" stroke-width="1.3" opacity=".55"/>
-  <circle cx="56" cy="57" r="10.4" fill="none" stroke="#2f8a6a" stroke-width="1" opacity=".5"/>
-  <circle cx="56" cy="57" r="6.4" fill="#03060c"/>
-  <circle cx="56" cy="57" r="2.4" fill="#0f2a52" opacity=".9"/>
-  <ellipse cx="47.6" cy="48.4" rx="7" ry="3.7" transform="rotate(-38 47.6 48.4)" fill="#fff" opacity=".8"/>
-  <circle cx="65.2" cy="66.4" r="2" fill="#d4e9ff" opacity=".7"/>
-  <circle cx="56" cy="57" r="31.5" fill="none" stroke="#ffffff" stroke-opacity=".08" stroke-width="1"/>
+    const estrias = (cx, cy, r, n, largo, ancho, color) => [...Array(n)].map((_, i) => {
+      const a = (i / n) * Math.PI * 2, c = Math.cos(a), s = Math.sin(a);
+      return `<line x1="${(cx + c * (r - largo)).toFixed(2)}" y1="${(cy + s * (r - largo)).toFixed(2)}" x2="${(cx + c * r).toFixed(2)}" y2="${(cy + s * r).toFixed(2)}" stroke="${color}" stroke-width="${ancho}"/>`;
+    }).join("");
+    return `<svg viewBox="0 0 131 120" aria-hidden="true"><defs>
+  <linearGradient id="${d('cu')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a3f"/><stop offset=".25" stop-color="#232327"/><stop offset="1" stop-color="#0c0c0e"/></linearGradient>
+  <linearGradient id="${d('cb')}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1a1a1d"/><stop offset=".5" stop-color="#2f2f34"/><stop offset="1" stop-color="#151518"/></linearGradient>
+  <linearGradient id="${d('me')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9dce1"/><stop offset=".45" stop-color="#60636a"/><stop offset="1" stop-color="#aeb2b9"/></linearGradient>
+  <linearGradient id="${d('ba')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4b4d54"/><stop offset=".5" stop-color="#141518"/><stop offset="1" stop-color="#34363b"/></linearGradient>
+  <linearGradient id="${d('fl')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#f3efe2"/><stop offset="1" stop-color="#cfd3dc"/></linearGradient>
+  <radialGradient id="${d('vi')}" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#0a0604"/><stop offset=".1" stop-color="#e98f3a"/><stop offset=".2" stop-color="#9a5420"/><stop offset=".33" stop-color="#5b2c8f"/><stop offset=".48" stop-color="#2fa36a"/><stop offset=".62" stop-color="#2d5fc0"/><stop offset=".78" stop-color="#101a3a"/><stop offset="1" stop-color="#040508"/></radialGradient>
+  <radialGradient id="${d('br')}" cx=".5" cy=".5" r=".5"><stop offset=".78" stop-color="#fff" stop-opacity="0"/><stop offset=".93" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <pattern id="${d('pa')}" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(18)"><circle cx="1.3" cy="1.3" r=".62" fill="#000" opacity=".6"/><circle cx="0" cy="0" r=".4" fill="#6d6d74" opacity=".25"/></pattern></defs>
+  <!-- flash emergente -->
+  <path d="M70 26 72 15h14l2 11z" fill="#141416" stroke="#050506" stroke-width=".6"/>
+  <path d="M73 25h12l-1 6H74z" fill="#2b2c31"/>
+  <path d="M68 5.2h24.6l2 9.6H66z" fill="#17171a" stroke="#050506" stroke-width=".7"/>
+  <rect x="69" y="6.6" width="22.6" height="7.2" rx="1.2" fill="url(#${d('fl')})" stroke="#8f939c" stroke-width=".7"/>
+  <g stroke="#b3bccd" stroke-width=".45">${[...Array(16)].map((_, i) => `<line x1="${70.4 + i * 1.35}" y1="7.4" x2="${70.4 + i * 1.35}" y2="13"/>`).join('')}</g>
+  <!-- cuerpo -->
+  <rect x="3.5" y="30" width="124" height="83" rx="10" fill="url(#${d('cu')})"/>
+  <path d="M3.5 48c0-9 6-16 15-16h28v81H14a10.5 10.5 0 0 1-10.5-10.5z" fill="url(#${d('cb')})"/>
+  <path d="M3.5 51h42v62H14a10.5 10.5 0 0 1-10.5-10.5z" fill="url(#${d('pa')})"/>
+  <path d="M127.5 52v50a11 11 0 0 1-11 11h-6V52z" fill="url(#${d('pa')})" opacity=".8"/>
+  <rect x="3.5" y="30" width="124" height="3.2" rx="1.6" fill="#6a6c73" opacity=".55"/>
+  <!-- prisma -->
+  <path d="M58 46c2-9 6-16 14-18h24c8 2 12 9 14 18z" fill="url(#${d('cu')})" stroke="#060607" stroke-width=".8"/>
+  <path d="M63 40c2-6 5-10 10-11.4h22c5 1.4 8 5.4 10 11.4" fill="none" stroke="#5a5c63" stroke-width=".6" opacity=".7"/>
+  <!-- dial de modos, pantalla y botón rojo -->
+  <ellipse cx="20.5" cy="33" rx="11.5" ry="4.2" fill="#0c0c0e"/>
+  <path d="M9.2 31.4v-3.2c0-2.4 5-4.2 11.3-4.2s11.3 1.8 11.3 4.2v3.2c0 2.4-5 4.2-11.3 4.2S9.2 33.8 9.2 31.4z" fill="url(#${d('ba')})" stroke="#050506" stroke-width=".6"/>
+  <ellipse cx="20.5" cy="28.2" rx="9.4" ry="3.2" fill="#2a2b30"/>
+  <g stroke="#8d9099" stroke-width=".5">${[...Array(14)].map((_, i) => { const a = i / 14 * 6.283; return `<line x1="${(20.5 + Math.cos(a) * 8.2).toFixed(1)}" y1="${(28.2 + Math.sin(a) * 2.7).toFixed(1)}" x2="${(20.5 + Math.cos(a) * 9.4).toFixed(1)}" y2="${(28.2 + Math.sin(a) * 3.2).toFixed(1)}"/>`; }).join('')}</g>
+  <rect x="37" y="31.5" width="21" height="6.2" rx=".9" fill="#a9b4bd" stroke="#0a0a0c" stroke-width=".8"/>
+  <rect x="38.2" y="32.6" width="18.6" height="4" fill="#c4ced6"/>
+  <circle cx="33" cy="36.8" r="2.2" fill="#c0262c" stroke="#3a0e10" stroke-width=".5"/><circle cx="32.3" cy="36.1" r=".7" fill="#ff9a9a" opacity=".7"/>
+  <!-- botón de disparo -->
+  <circle cx="21.8" cy="46.4" r="6.4" fill="#0a0a0c"/><circle cx="21.8" cy="46.4" r="5.4" fill="url(#${d('ba')})" stroke="#4a4c52" stroke-width=".5"/><ellipse cx="20.4" cy="44.6" rx="2.6" ry="1.5" fill="#fff" opacity=".22"/>
+  <circle cx="44.2" cy="43.6" r="2.6" fill="#101012" stroke="#6a6c72" stroke-width=".5"/><circle cx="44.2" cy="43.6" r="1.3" fill="#cfd3da" opacity=".7"/>
+  <circle cx="52.4" cy="44.2" r=".9" fill="#050506"/>
+  <!-- dial derecho -->
+  <ellipse cx="107" cy="34" rx="8.4" ry="3.2" fill="#0c0c0e"/>
+  <path d="M98.6 32.6v-3c0-1.8 3.7-3.2 8.4-3.2s8.4 1.4 8.4 3.2v3c0 1.8-3.7 3.2-8.4 3.2s-8.4-1.4-8.4-3.2z" fill="url(#${d('ba')})" stroke="#050506" stroke-width=".5"/>
+  <ellipse cx="107" cy="29.5" rx="7" ry="2.5" fill="#2c2d32"/>
+  <g stroke="#8d9099" stroke-width=".45">${[...Array(16)].map((_, i) => { const a = i / 16 * 6.283; return `<line x1="${(107 + Math.cos(a) * 6.2).toFixed(1)}" y1="${(29.5 + Math.sin(a) * 2).toFixed(1)}" x2="${(107 + Math.cos(a) * 7).toFixed(1)}" y2="${(29.5 + Math.sin(a) * 2.5).toFixed(1)}"/>`; }).join('')}</g>
+  <!-- anillas de correa -->
+  <rect x="0" y="52" width="5.4" height="7.4" rx="1.6" fill="url(#${d('me')})"/><rect x="125.6" y="52" width="5.4" height="7.4" rx="1.6" fill="url(#${d('me')})"/>
+  <!-- botones traseros visibles de frente -->
+  <rect x="112" y="62" width="11" height="13" rx="3.4" fill="#0a0a0c" stroke="#35363b" stroke-width=".6"/>
+  <circle cx="116.4" cy="92.6" r="5" fill="#0a0a0c" stroke="#3a3b40" stroke-width=".6"/><circle cx="116.4" cy="92.6" r="3.6" fill="url(#${d('ba')})"/>
+  <!-- lente -->
+  <circle cx="77" cy="81" r="37.4" fill="#060607"/>
+  <circle cx="77" cy="81" r="36.2" fill="url(#${d('ba')})" stroke="#0b0b0d" stroke-width="1"/>
+  <circle cx="77" cy="81" r="35" fill="none" stroke="#050506" stroke-width="5" stroke-dasharray="1 1.55" opacity=".75"/>
+  <circle cx="77" cy="81" r="31.6" fill="#0b0b0d"/>
+  <circle cx="77" cy="81" r="31.2" fill="none" stroke="#d3262e" stroke-width="1.25"/>
+  <circle cx="77" cy="81" r="29.4" fill="#0d0d10" stroke="#3b3d43" stroke-width=".8"/>
+  <circle cx="77" cy="81" r="27" fill="none" stroke="#1f2024" stroke-width="3"/>
+  <circle cx="77" cy="81" r="22.6" fill="#08090b" stroke="#4d5058" stroke-width=".9"/>
+  <circle cx="77" cy="81" r="21" fill="url(#${d('vi')})"/>
+  <circle cx="77" cy="81" r="16.4" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width=".8"/>
+  <circle cx="77" cy="81" r="12.2" fill="none" stroke="#000" stroke-opacity=".35" stroke-width=".9"/>
+  <circle cx="77" cy="81" r="8.2" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width=".7"/>
+  <circle cx="77" cy="81" r="21" fill="url(#${d('br')})"/>
+  <path d="M60.4 70.6a19.6 19.6 0 0 1 14-9" fill="none" stroke="#bfffe0" stroke-width="2.6" stroke-linecap="round" opacity=".55"/>
+  <path d="M62 91.4a19.6 19.6 0 0 0 9.6 7.2" fill="none" stroke="#ffd29a" stroke-width="2" stroke-linecap="round" opacity=".4"/>
+  <ellipse cx="68" cy="72" rx="7" ry="3.6" transform="rotate(-40 68 72)" fill="#fff" opacity=".5"/>
+  <circle cx="77.6" cy="81.4" r="1.2" fill="#fff" opacity=".9"/>
+  <circle cx="84" cy="88.4" r="1.7" fill="#fff" opacity=".7"/>
   </svg>`;
   }
 
   // posición del flash de cada modelo, en % del dibujo
-  const FLASH_EN = { reflex: [50, 16], compacta: [23, 24] };
+  const FLASH_EN = { pro: [61, 9] };
 
   /* sonido de obturador: clic del espejo + cortinilla + golpe seco, generado en el navegador */
   let ruidoBuf = null;
@@ -642,7 +648,7 @@
     const celdas = [];
     for (let c = 0; c < cols; c++) for (let f = 0; f < filas; f++) celdas.push([c, f]);
     celdas.sort(() => Math.random() - 0.5);
-    const tam = Math.max(72, Math.min(W, H) * 0.23);
+    const tam = Math.max(80, Math.min(W, H) * 0.26);
     const N = 8, PASO = 85;
     const anims = [];
     // el obturador solo suena si el usuario encendió el sonido
@@ -651,7 +657,7 @@
     if (conSonido) { salida = audio.ctx.createGain(); salida.gain.value = 0.6; salida.connect(audio.ctx.destination); }
     celdas.slice(0, N).forEach(([c, f], i) => {
       const cam = el("div", "camara");
-      const modelo = i % 2 ? "compacta" : "reflex";
+      const modelo = "pro";
       cam.innerHTML = camaraSvg(modelo, i) + '<span class="camara__destello"></span>';
       cam.style.setProperty("--fx", FLASH_EN[modelo][0] + "%");
       cam.style.setProperty("--fy", FLASH_EN[modelo][1] + "%");
