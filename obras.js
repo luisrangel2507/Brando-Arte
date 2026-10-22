@@ -31,7 +31,13 @@ window.RECORRIDO = {
   artista: {
     titulo: "Sobre el artista",
     foto: "", // nombre de una foto dentro de obras/ (opcional)
-    texto: [], // un párrafo por elemento, por ejemplo: ["Primer párrafo.", "Segundo párrafo."]
+    texto: [ // tomado del catálogo Miami River Art Fair 2018
+      "Brando Gutiérrez Guerrero, originario de la Ciudad de México pero habitante desde su primer año en la Ciudad de Morelia Michoacán. Desde niño se ha encaminado por las artes visuales, teniendo como don, visualizar y apreciar los contornos surrealistas que nos rodean.",
+      "Artista plástico autodidacta y dueño de una empatía natural, Brando ama lo que hace y lo demuestra con su vibrante colorido y riqueza, en las palmarias texturas de su obra, con preferencia por el Novo Arte Latino.",
+      "Su nombre lo recibió por el famoso actor rebelde Marlon Brando, por lo sonoro de su nombre; en lo particular lo iguala en el manejo de la libertad que da el entorno social y familiar que le ha permitido crear lo que le nace de acción y pensamiento, sin temor a retar el movimiento actual o status quo.",
+      "Se ha distinguido por seguir sus pasiones y sueños, sin perder la alegría y sabor a la vida; por nacimiento se insertó en la Generación X y lo demuestra al ser alguien responsable y comprometido con el entorno, quizá la última generación que pudo jugar en la calle; y ello influye en su obra, cuando también revela una visión, en abstracto, de un mundo cambiante y apresurado que debe ser plasmado en lienzos.",
+      "Cada artista se enamora de su obra y esta, contiene un poco de su autor. “Quien posee una obra de este artista, tiene también un visor al espíritu del autor”"
+    ], // un párrafo por elemento
     datos: [] // línea de tiempo (opcional), por ejemplo: [{ anio: "2024", texto: "Exposición ..." }]
   },
   salas: [
@@ -42,7 +48,7 @@ window.RECORRIDO = {
       pared: "#3b5a58",
       obras: [
         { titulo: "Obra 1", anio: "", tecnica: "", ancho: 102, alto: 120, medidas: false, img: "s1-a.jpg", nota: "" },
-        { titulo: "Obra 2", anio: "", tecnica: "", ancho: 130, alto: 100, medidas: false, img: "s1-b.jpg", nota: "" },
+        { titulo: "Cómplices", anio: "2018", tecnica: "Espátula y acrílicos sobre lienzo", ancho: 159.7, alto: 139.8, img: "s1-b.jpg", nota: "" }, // catálogo Miami River Art Fair 2018: 139.8 x 159.7 cm (alto x ancho)
         { titulo: "Obra 3", anio: "", tecnica: "", ancho: 144, alto: 100, medidas: false, img: "s1-c.jpg", nota: "" }
       ]
     },

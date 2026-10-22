@@ -170,7 +170,7 @@
     nav.appendChild(link);
     const sec = el("section", "artista");
     sec.id = "artista";
-    const cuerpo = el("div", "artista__cuerpo");
+    const cuerpo = el("div", A.foto ? "artista__cuerpo" : "artista__cuerpo artista__cuerpo--solo");
     if (A.foto) {
       const f = el("figure", "artista__foto");
       const im = new Image();

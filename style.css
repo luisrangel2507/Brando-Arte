@@ -289,3 +289,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   background: repeating-conic-gradient(from 12deg, #ffffffd9 0 1.6deg, #fff0 1.6deg 22.5deg);
   -webkit-mask-image: radial-gradient(circle, #000 0, #0000 68%); mask-image: radial-gradient(circle, #000 0, #0000 68%); }
 .camaras__velo { position: absolute; inset: 0; background: #fff; opacity: 0; }
+
+@media (min-width: 801px) {
+  .artista__cuerpo--solo { grid-template-columns: minmax(0, 64ch); }
+}
