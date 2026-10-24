@@ -65,13 +65,18 @@ window.RECORRIDO = {
     },
     {
       titulo: "Sala 3",
-      subtitulo: "Obra reciente",
+      subtitulo: "Miami River Art Fair 2018",
       transicion: "pintura",
-      texto: "Escribe aquí un párrafo corto sobre esta etapa del pintor.",
+      texto: "", // catálogo Miami River Art Fair 2018; medidas del catálogo: alto x ancho en cm
       pared: "#2d3850",
       obras: [
-        { titulo: "Obra 6", anio: "2024", tecnica: "Óleo sobre tela", ancho: 90, alto: 130, img: "", nota: "" },
-        { titulo: "Obra 7", anio: "2025", tecnica: "Óleo sobre tela", ancho: 140, alto: 110, img: "", nota: "" }
+        { titulo: "Delacroix & Hirst", anio: "2018", tecnica: "Acrílicos sobre tela", ancho: 175, alto: 139, img: "s3-a.jpg", nota: "" },
+        { titulo: "Remix Velázquez and Hirst", anio: "2018", tecnica: "Acrílicos sobre tela", ancho: 190, alto: 139, img: "s3-b.jpg", nota: "" },
+        { titulo: "El Padrino", anio: "2018", tecnica: "Espátula y goteo de acrílico sobre lienzo", ancho: 136.5, alto: 156, img: "s3-c.jpg", nota: "" },
+        { titulo: "Damas de Honor", anio: "2018", tecnica: "Espátula y goteo de acrílico sobre lienzo", ancho: 205, alto: 156, img: "s3-d.jpg", nota: "" },
+        { titulo: "El Banquete de las Manzanas", anio: "2018", tecnica: "Espátula y goteo de acrílico sobre lienzo", ancho: 209, alto: 157, img: "s3-e.jpg", nota: "" },
+        { titulo: "Boda Azul", anio: "2018", tecnica: "Espátula y goteo de acrílico sobre lienzo", ancho: 209.5, alto: 157, img: "s3-f.jpg", nota: "" },
+        { titulo: "Dos Mundos", anio: "2018", tecnica: "Espátula y acrílicos sobre lienzo", ancho: 182, alto: 155, img: "s3-g.jpg", nota: "" }
       ]
     }
   ]
