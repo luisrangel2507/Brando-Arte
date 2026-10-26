@@ -1,5 +1,6 @@
 (function () {
   const D = window.RECORRIDO;
+  document.documentElement.classList.add("js");
   const $ = (id) => document.getElementById(id);
   const main = $("main");
 
@@ -204,11 +205,12 @@
   const io = new IntersectionObserver((es) => {
     es.forEach((e) => {
       if (e.isIntersecting) {
+        e.target.classList.add("viva");
         const n = e.target.id === "artista" ? links.length - 1 : +e.target.id.split("-")[1];
         links.forEach((l, i) => l.setAttribute("aria-current", i === n ? "true" : "false"));
       }
     });
-  }, { threshold: 0.55 });
+  }, { threshold: 0.4 });
   document.querySelectorAll(".sala, .artista").forEach((s) => io.observe(s));
 
   // la barra con las salas no se muestra sobre la portada
@@ -914,5 +916,50 @@
     const pared = sala.querySelector(".pared");
     if (boton && pared) pared.scrollLeft = boton.offsetLeft - (pared.clientWidth - boton.offsetWidth) / 2;
     abrir(i);
+  })();
+  /* ---------- polvo dorado flotando, como brasas en el aire (ambiente) ---------- */
+  (function polvo() {
+    if (sinMov.matches) return;
+    const c = document.createElement("canvas");
+    c.className = "polvo";
+    c.setAttribute("aria-hidden", "true");
+    document.body.prepend(c);
+    const x = c.getContext("2d");
+    if (!x) { c.remove(); return; }
+    let W = 0, H = 0, dpr = 1;
+    const N = innerWidth < 700 ? 26 : 44;
+    const ps = [];
+    const medir = () => { dpr = Math.min(window.devicePixelRatio || 1, 2); W = c.width = Math.round(innerWidth * dpr); H = c.height = Math.round(innerHeight * dpr); };
+    const nueva = (desdeAbajo) => ({
+      x: Math.random() * W,
+      y: desdeAbajo ? H + Math.random() * 60 * dpr : Math.random() * H,
+      r: (0.7 + Math.random() * 1.9) * dpr,
+      v: (0.1 + Math.random() * 0.34) * dpr,
+      d: Math.random() * 6.28, ds: 0.002 + Math.random() * 0.006,
+      a: 0.18 + Math.random() * 0.5,
+      t: Math.random() * 6.28, ts: 0.012 + Math.random() * 0.02,
+      c: Math.random() < 0.7 ? "255,226,168" : "240,160,90"
+    });
+    medir();
+    for (let i = 0; i < N; i++) ps.push(nueva(false));
+    window.addEventListener("resize", medir);
+    function cuadro() {
+      requestAnimationFrame(cuadro);
+      if (document.hidden || visor.open) return;
+      x.clearRect(0, 0, W, H);
+      for (const p of ps) {
+        p.y -= p.v; p.d += p.ds; p.t += p.ts;
+        p.x += Math.sin(p.d) * 0.35 * dpr;
+        if (p.y < -20 * dpr) Object.assign(p, nueva(true));
+        const al = p.a * (0.55 + 0.45 * Math.sin(p.t));
+        const g = x.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+        g.addColorStop(0, "rgba(" + p.c + "," + al + ")");
+        g.addColorStop(0.35, "rgba(" + p.c + "," + al * 0.35 + ")");
+        g.addColorStop(1, "rgba(" + p.c + ",0)");
+        x.fillStyle = g;
+        x.fillRect(p.x - p.r * 5, p.y - p.r * 5, p.r * 10, p.r * 10);
+      }
+    }
+    cuadro();
   })();
 })();
